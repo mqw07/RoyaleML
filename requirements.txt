@@ -1,0 +1,5 @@
+# inference-sdk only supports Python <3.13 (see PyPI). Use Python 3.12 if you need it:
+#   py -3.12 -m venv .venv && .\.venv\Scripts\activate && pip install inference-sdk
+mss>=9.0.0
+numpy>=1.26.0
+opencv-python>=4.8.0

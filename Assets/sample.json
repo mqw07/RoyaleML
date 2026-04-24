@@ -1,0 +1,222 @@
+{
+    "items": [
+      {
+        "name": "Knight",
+        "id": 26000000,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 3,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "medium",
+        "groupCard": false,
+        "usage": 8.88,
+        "hitpoints": 1766
+      },
+      {
+        "name": "Archers",
+        "id": 26000001,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 3,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/W4Hmp8MTSdXANN8KdblbtHwtsbt0o749BbxNqmJYfA8.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/W4Hmp8MTSdXANN8KdblbtHwtsbt0o749BbxNqmJYfA8.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "both",
+        "attack_type": "single",
+        "hp_level": "low",
+        "groupCard": true,
+        "usage": 1.44,
+        "hitpoints": 304
+      },
+      {
+        "name": "Goblins",
+        "id": 26000002,
+        "elixirCost": 2,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/X_DQUye_OaS3QN6VC9CPw05Fit7wvSm3XegXIXKP--0.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "low",
+        "groupCard": true,
+        "usage": 3.6,
+        "hitpoints": 202
+      },
+      {
+        "name": "Giant",
+        "id": 26000003,
+        "elixirCost": 5,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/Axr4ox5_b7edmLsoHxBX3vmgijAIibuF6RImTbqLlXE.png"
+        },
+        "rarity": "rare",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "buildings",
+        "attack_type": "single",
+        "hp_level": "high",
+        "groupCard": false,
+        "usage": 2.32,
+        "hitpoints": 4090
+      },
+      {
+        "name": "P.E.K.K.A",
+        "id": 26000004,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 7,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/MlArURKhn_zWAZY-Xj1qIRKLVKquarG25BXDjUQajNs.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/MlArURKhn_zWAZY-Xj1qIRKLVKquarG25BXDjUQajNs.png"
+        },
+        "rarity": "epic",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "high",
+        "groupCard": false,
+        "usage": 3.28,
+        "hitpoints": 3760
+      },
+      {
+        "name": "Minions",
+        "id": 26000005,
+        "elixirCost": 3,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/yHGpoEnmUWPGV_hBbhn-Kk-Bs838OjGzWzJJlQpQKQA.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "flying",
+        "targets": "both",
+        "attack_type": "single",
+        "hp_level": "low",
+        "groupCard": true,
+        "usage": 2.88,
+        "hitpoints": 230
+      },
+      {
+        "name": "Balloon",
+        "id": 26000006,
+        "elixirCost": 5,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/qBipxLo-3hhCnPrApp2Nn3b2NgrSrvwzWytvREev0CY.png"
+        },
+        "rarity": "epic",
+        "type": "troop",
+        "mobility": "flying",
+        "targets": "buildings",
+        "attack_type": "single",
+        "hp_level": "medium",
+        "groupCard": false,
+        "usage": 7.52,
+        "hitpoints": 1679
+      },
+      {
+        "name": "Witch",
+        "id": 26000007,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 5,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/cfwk1vzehVyHC-uloEIH6NOI0hOdofCutR5PyhIgO6w.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/cfwk1vzehVyHC-uloEIH6NOI0hOdofCutR5PyhIgO6w.png"
+        },
+        "rarity": "epic",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "both",
+        "attack_type": "splash",
+        "hp_level": "medium",
+        "groupCard": false,
+        "usage": 5.12,
+        "hitpoints": 839
+      },
+      {
+        "name": "Barbarians",
+        "id": 26000008,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 5,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/TvJsuu2S4yhyk1jVYUAQwdKOnW4U77KuWWOTPOWnwfI.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/TvJsuu2S4yhyk1jVYUAQwdKOnW4U77KuWWOTPOWnwfI.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "medium",
+        "groupCard": true,
+        "usage": 0.32,
+        "hitpoints": 670
+      },
+      {
+        "name": "Golem",
+        "id": 26000009,
+        "elixirCost": 8,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/npdmCnET7jmVjJvjJQkFnNSNnDxYHDBigbvIAloFMds.png"
+        },
+        "rarity": "epic",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "high",
+        "groupCard": false,
+        "usage": 2.24,
+        "hitpoints": 5120
+      },
+      {
+        "name": "Skeletons",
+        "id": 26000010,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 1,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/oO7iKMU5m0cdxhYPZA3nWQiAUh2yoGgdThLWB1rVSec.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/oO7iKMU5m0cdxhYPZA3nWQiAUh2yoGgdThLWB1rVSec.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "low",
+        "groupCard": true,
+        "usage": 14.56,
+        "hitpoints": 81
+      },
+      {
+        "name": "Valkyrie",
+        "id": 26000011,
+        "maxEvolutionLevel": 1,
+        "elixirCost": 4,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/0lIoYf3Y_plFTzo95zZL93JVxpfb3MMgFDDhgSDGU9A.png",
+          "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/0lIoYf3Y_plFTzo95zZL93JVxpfb3MMgFDDhgSDGU9A.png"
+        },
+        "rarity": "rare",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "splash",
+        "hp_level": "high",
+        "groupCard": false,
+        "usage": 3.04,
+        "hitpoints": 1907
+      }
+    ]
+}
