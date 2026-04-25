@@ -10,6 +10,7 @@ def load_cards_json(path: Path) -> dict:
         items = json.load(f)["items"]
         return {card["name"]: card for card in items}
 
-cards = load_cards_json(SAMPLE_JSON)
-print(cards)
+if __name__ == '__main__':
+    cards = load_cards_json(SAMPLE_JSON)
+    print(cards)
 
