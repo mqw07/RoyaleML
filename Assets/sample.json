@@ -56,6 +56,23 @@
         "hitpoints": 202
       },
       {
+        "name": "Spear Goblins",
+        "id": 26000019,
+        "elixirCost": 2,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/FSDFotjaXidI4ku_WFpVCTWS1hKGnFh1sxX0lxM43_E.png"
+        },
+        "rarity": "common",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "both",
+        "attack_type": "single",
+        "hp_level": "low",
+        "groupCard": true,
+        "usage": 4.0,
+        "hitpoints": 133
+      },
+      {
         "name": "Giant",
         "id": 26000003,
         "elixirCost": 5,
@@ -90,6 +107,23 @@
         "groupCard": false,
         "usage": 3.28,
         "hitpoints": 3760
+      },
+      {
+        "name": "Mini P.E.K.K.A",
+        "id": 26000018,
+        "elixirCost": 4,
+        "iconUrls": {
+          "medium": "https://api-assets.clashroyale.com/cards/300/Fmltc4j3Ve9vO_xhHHPEO3PRP3SmU2oKp2zkZQHRZT4.png"
+        },
+        "rarity": "rare",
+        "type": "troop",
+        "mobility": "ground",
+        "targets": "ground",
+        "attack_type": "single",
+        "hp_level": "medium",
+        "groupCard": false,
+        "usage": 7.36,
+        "hitpoints": 1361
       },
       {
         "name": "Minions",
