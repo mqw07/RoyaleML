@@ -56,6 +56,7 @@ def run_loop(region: dict, frame_rate = 1):
                 time.sleep(sleep_time)
 
     cv.destroyAllWindows()
+    
 class Prediction:
     # An instance of troop detection. 
     pass
