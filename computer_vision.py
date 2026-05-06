@@ -42,8 +42,37 @@ def run_loop(region: dict, frame_rate = 1):
             img = np.asarray(ss)
             frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
             cv.imshow("Live", frame)
-            print(identification.identify(frame))
-    
+            identifications = identification.identify(frame)
+            print({x: len(identifications[x]) for x in identifications})
+
+            # Call elixir counting function here
+
+            key = cv.waitKey(1)
+            if key == ord('q'):
+                break
+
+            elapsed = time.perf_counter() - loop_start
+            sleep_time = frame_interval - elapsed
+            if sleep_time > 0:
+                time.sleep(sleep_time)
+
+    cv.destroyAllWindows()
+
+# NEEDS WORK
+def game_loop(region: dict, frame_rate = 1):
+    # Create a running loop, identifying the region at the given frame rate while using class based identification to make predictions.
+    frame_interval = 1.0 / frame_rate
+
+    with MSS() as sct:
+        while True:
+            loop_start = time.perf_counter()
+            ss = sct.grab(region)
+            img = np.asarray(ss)
+            frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
+            cv.imshow("Live", frame)
+            identifications = identification.identify(frame)
+            print({x: len(identifications[x]) for x in identifications})
+
             # Call elixir counting function here
 
             key = cv.waitKey(1)
@@ -62,6 +91,6 @@ class Prediction:
     pass
 
 if __name__ == '__main__':
-    print(run_loop(capture))
+    run_loop(capture)
 
 
