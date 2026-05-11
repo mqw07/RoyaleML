@@ -11,6 +11,13 @@ capture = {
             "height": 1310
             }
 
+capture_elixir = {
+                    "top": 1315,
+                    "left": 1963,
+                    "width": 38,
+                    "height": 40
+                }
+
 def grab_frame(region: dict):
     # Grabs the current frame of Gameplay
 
@@ -20,7 +27,7 @@ def grab_frame(region: dict):
     return cv.cvtColor(img, cv.COLOR_BGRA2BGR)
 
 def show_frame(image):
-    # Shows the image captured
+    # Shows the image captured. Use in tandem with grab_frame()
 
     cv.imshow('Screenshot', image)
     cv.waitKey(0)
@@ -41,10 +48,15 @@ def run_loop(region: dict, frame_rate = 1):
             ss = sct.grab(region)
             img = np.asarray(ss)
             frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
-            cv.imshow("Live", frame)
             identifications = identification.identify(frame)
-            print({x: len(identifications[x]) for x in identifications})
 
+            ess = sct.grab(capture_elixir)
+            eimg = np.asarray(ess)
+            eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
+            elixir_count = identification.grab_elixir(eframe)
+            cv.imshow("Live", eframe)
+
+            print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
             # Call elixir counting function here
 
             key = cv.waitKey(1)
@@ -69,10 +81,15 @@ def game_loop(region: dict, frame_rate = 1):
             ss = sct.grab(region)
             img = np.asarray(ss)
             frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
-            cv.imshow("Live", frame)
             identifications = identification.identify(frame)
-            print({x: len(identifications[x]) for x in identifications})
 
+            ess = sct.grab(capture_elixir)
+            eimg = np.asarray(ess)
+            eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
+            elixir_count = identification.grab_elixir(eframe)
+            cv.imshow("Live", eframe)
+
+            print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
             # Call elixir counting function here
 
             key = cv.waitKey(1)
