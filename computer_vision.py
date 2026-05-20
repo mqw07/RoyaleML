@@ -153,6 +153,6 @@ class Prediction:
     pass
 
 if __name__ == '__main__':
-    get_elixir_templates(capture)
+    run_loop(capture)
 
 
