@@ -43,10 +43,13 @@ def identify(image) -> dict:
     else:
         return {}
 
-_ELIXIR_DIGITS_DIR = _ASSETS / "Game_Data" / "elixir_digits"
+_ELIXIR_DIGITS_DIR = _ASSETS / "elixir_templates"
 _TEMPLATE_SIZE = (32, 48)  # width, height
 _TEMPLATE_MIN_SCORE = 0.58
-_VALID_ELIXIR = frozenset(str(i) for i in range(11))
+_VALID_ELIXIR = frozenset(str(i) for i in range(0, 11))
+_SINGLE_DIGITS = frozenset(str(i) for i in range(10))
+_TEN_MIN_SCORE = 0.65
+_TEN_MIN_ASPECT = 1.05
 
 
 def _read_bgr(image) -> np.ndarray | None:
@@ -130,6 +133,15 @@ def _glyph_to_png(glyph: np.ndarray) -> bytes:
     return encoded.tobytes()
 
 
+def _extract_glyph(bgr: np.ndarray) -> np.ndarray | None:
+    mask = _elixir_digit_mask(bgr)
+    boxes = _glyph_boxes(mask)
+    if not boxes:
+        return None
+    box = max(boxes, key=lambda b: b[2] * b[3])
+    return _crop_glyph(mask, box)
+
+
 @lru_cache(maxsize=1)
 def _elixir_templates() -> dict[str, np.ndarray]:
     templates: dict[str, np.ndarray] = {}
@@ -139,10 +151,13 @@ def _elixir_templates() -> dict[str, np.ndarray]:
         label = path.stem
         if label not in _VALID_ELIXIR:
             continue
-        raw = cv.imread(str(path), cv.IMREAD_GRAYSCALE)
-        if raw is None:
+        bgr = _read_bgr(path)
+        if bgr is None:
             continue
-        templates[label] = _normalize_glyph(raw)
+        glyph = _extract_glyph(bgr)
+        if glyph is None:
+            continue
+        templates[label] = _normalize_glyph(glyph)
     return templates
 
 
@@ -153,13 +168,21 @@ def _elixir_ocr():
     return ddddocr.DdddOcr(show_ad=False)
 
 
-def _match_template(glyph: np.ndarray) -> str | None:
+def _match_template(
+    glyph: np.ndarray,
+    *,
+    labels: frozenset[str] | None = None,
+    min_score: float | None = None,
+) -> str | None:
     norm = _normalize_glyph(glyph)
     templates = _elixir_templates()
     if not templates:
         return None
-    best_label, best_score = None, _TEMPLATE_MIN_SCORE
+    floor = _TEMPLATE_MIN_SCORE if min_score is None else min_score
+    best_label, best_score = None, floor
     for label, template in templates.items():
+        if labels is not None and label not in labels:
+            continue
         if template.shape != norm.shape:
             template = cv.resize(template, (norm.shape[1], norm.shape[0]), interpolation=cv.INTER_AREA)
         score = cv.matchTemplate(norm, template, cv.TM_CCOEFF_NORMED)[0][0]
@@ -183,10 +206,6 @@ def _apply_shape_fixes(glyph: np.ndarray, digit: str) -> str:
         return ""
     holes = _hole_count(glyph)
     aspect = _glyph_aspect(glyph)
-    if digit == "5" and holes >= 1:
-        return "9"
-    if digit == "9" and holes == 0:
-        return "5"
     if digit == "7" and aspect < 0.42:
         return "1"
     if digit == "1" and aspect > 0.52:
@@ -195,7 +214,7 @@ def _apply_shape_fixes(glyph: np.ndarray, digit: str) -> str:
 
 
 def _read_glyph(glyph: np.ndarray) -> str:
-    digit = _match_template(glyph)
+    digit = _match_template(glyph, labels=_SINGLE_DIGITS)
     if digit is None:
         digit = _ocr_glyph(glyph)
     return _apply_shape_fixes(glyph, digit)
@@ -212,31 +231,18 @@ def grab_elixir(image) -> str:
         return ""
 
     glyphs = [_crop_glyph(mask, box) for box in boxes]
-    if len(glyphs) >= 2:
-        left, right = _read_glyph(glyphs[0]), _read_glyph(glyphs[-1])
+    if len(glyphs) == 2:
+        left = _match_template(glyphs[0], labels=frozenset({"1"}))
+        right = _match_template(glyphs[-1], labels=frozenset({"0"}))
         if left == "1" and right == "0":
             return "10"
 
     glyph = glyphs[0]
-    if len(glyphs) == 1 and _glyph_aspect(glyph) >= 0.9:
-        h, w = glyph.shape[:2]
-        split = _try_split_ten(glyph)
-        if split:
-            return split
+    if len(glyphs) == 1 and _glyph_aspect(glyph) >= _TEN_MIN_ASPECT:
+        if _match_template(glyph, labels=frozenset({"10"}), min_score=_TEN_MIN_SCORE) == "10":
+            return "10"
 
     return _read_glyph(glyph)
-
-
-def _try_split_ten(glyph: np.ndarray) -> str | None:
-    h, w = glyph.shape[:2]
-    mid = w // 2
-    left, right = glyph[:, :mid], glyph[:, mid:]
-    if cv.countNonZero(left) < 12 or cv.countNonZero(right) < 12:
-        return None
-    d0, d1 = _read_glyph(left), _read_glyph(right)
-    if d0 == "1" and d1 == "0":
-        return "10"
-    return None
 
 if __name__ == '__main__':
     #print(identify(gameplay_image_url))
