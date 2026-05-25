@@ -10,12 +10,13 @@ Troop Classification Model:
 - Identifies class name and quantity of a class on screen
 
 Elixir Counting:
-- Utilizes Pytesseract OCR on a cutout of screen to identify self elixir
+- First, program tries OpenCV Template matching to find correct elixir amount
+- If above fails, initiate ddddocr on a cutout of screen to identify self elixir
 - Uses this, with a current_troops dictionary to differentiate and track opposing and friendly troops
 
 Computer Vision:
 - Running loop of screen to capture the emulated game using MSS and OpenCV
-- Feeds current screen instance to Pytesseract and Roboflow for complete current metadata
+- Feeds current screen instance to ddddocr and Roboflow for complete current metadata
 
 TODO:
 - Implement decision making capabilities and automated playing function with PyAutoGUI
