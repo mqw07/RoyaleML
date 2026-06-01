@@ -71,39 +71,7 @@ def run_loop(region: dict, frame_rate = 1):
                 time.sleep(sleep_time)
 
     cv.destroyAllWindows()
-
-# NEEDS WORK
-def game_loop(region: dict, frame_rate = 1):
-    # Create a running loop, identifying the region at the given frame rate while using class based identification to make predictions.
-    frame_interval = 1.0 / frame_rate
-
-    with MSS() as sct:
-        while True:
-            loop_start = time.perf_counter()
-            ss = sct.grab(region)
-            img = np.asarray(ss)
-            frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
-            identifications = identification.identify(frame)
-
-            ess = sct.grab(capture_elixir)
-            eimg = np.asarray(ess)
-            eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
-            elixir_count = identification.grab_elixir(eframe)
-            cv.imshow("Live", eframe)
-
-            print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
-            # Call elixir counting function here
-
-            key = cv.waitKey(1)
-            if key == ord('q'):
-                break
-
-            elapsed = time.perf_counter() - loop_start
-            sleep_time = frame_interval - elapsed
-            if sleep_time > 0:
-                time.sleep(sleep_time)
-
-    cv.destroyAllWindows()
+    
 
 def get_elixir_templates(region: dict, frame_rate = 1/2.8):
     # Create a running loop, identifying the region at the given frame rate.
