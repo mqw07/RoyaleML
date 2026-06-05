@@ -1,5 +1,5 @@
 import pyautogui
-from time import sleep
+pyautogui.PAUSE = 0.05
 pyautogui.FAILSAFE = True
    
 def click_location(location: tuple):
@@ -21,8 +21,8 @@ def click_card_icon(location: int):
 
 def place_card(card_slot: int, location: tuple):
     # Places card at slot (card_slot) at x, y coordinates defined by location[0], location[1]
+    
     click_card_icon(card_slot)
-    sleep(0.01)
     click_location(location)
 
 if __name__ == '__main__':
