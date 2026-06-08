@@ -49,7 +49,7 @@ def run_loop(region: dict, frame_rate = 1):
             ss = sct.grab(region)
             img = np.asarray(ss)
             frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
-            #identifications = identification.identify(frame)
+            identifications = identification.identify(frame)
 
             ess = sct.grab(capture_elixir)
             eimg = np.asarray(ess)
@@ -57,7 +57,7 @@ def run_loop(region: dict, frame_rate = 1):
             elixir_count = identification.grab_elixir(eframe)
             cv.imshow("Live", eframe)
 
-            #print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
+            print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
             print({'e': elixir_count})
             # Call elixir counting function here
 
