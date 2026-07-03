@@ -16,7 +16,9 @@ _ASSETS = Path(__file__).resolve().parent / "Assets"
 gameplay_image_url = _ASSETS / "Game_Data" / "gameplay41.png"
 
 def identify(image) -> dict:
-    # Inference the image using the Roboflow API. Can pass in image path, or nparray.
+    """ Inference the image using the Roboflow API. Can pass in image path, or nparray.
+        Data returned in type {'class' : [{'Confidence': decimal, 'Position': (x, y)}]}
+    """
     if isinstance(image, Path):
         image = str(image)
     elif isinstance(image, np.ndarray):
@@ -245,6 +247,5 @@ def grab_elixir(image) -> str:
     return _read_glyph(glyph)
 
 if __name__ == '__main__':
-    #print(identify(gameplay_image_url))
-    print(grab_elixir(_ASSETS / "Game_Data" / "image.png"))
+    print(identify(gameplay_image_url))
 

@@ -1,4 +1,5 @@
 import cv2 as cv
+import classification
 import numpy as np
 from mss import MSS    
 import identification
@@ -40,10 +41,15 @@ def identify_frame(region: dict) -> dict:
     return identification.identify(gameplay_capture)
 
 def run_loop(region: dict, frame_rate = 1):
-    # Create a running loop, identifying the region at the given frame rate.
+    """
+     Create a running loop, identifying the region and current elixir at the given frame rate.
+    """
     frame_interval = 1.0 / frame_rate
 
+    skip = False
+    prev_identification = None
     with MSS() as sct:
+        
         while True:
             loop_start = time.perf_counter()
             ss = sct.grab(region)
@@ -57,29 +63,36 @@ def run_loop(region: dict, frame_rate = 1):
             elixir_count = identification.grab_elixir(eframe)
             cv.imshow("Live", eframe)
 
-            print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
-            print({'e': elixir_count})
-            # Call elixir counting function here
+            #print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
+            #print(f"{identifications}, {elixir_count}")
+            # Pass in identifications, elixir_count
+            if skip:
+                prev_identification = identifications
+            else:
+                # Factopr in prev elixir_count
+                print(classification.infer_team_motion(prev_identification, identifications, elixir_count))
+                prev_identification = identification
 
             key = cv.waitKey(1)
             if key == ord('q'):
                 break
-
+            
             elapsed = time.perf_counter() - loop_start
             sleep_time = frame_interval - elapsed
             if sleep_time > 0:
                 time.sleep(sleep_time)
+            skip = not(skip)
 
     cv.destroyAllWindows()
     
 
-def get_elixir_templates(region: dict, frame_rate = 1/2.8):
+def get_troop_movement(region: dict, frame_rate = 1):
     # Create a running loop, identifying the region at the given frame rate.
     frame_interval = 1.0 / frame_rate
 
     with MSS() as sct:
         script_dir = Path(__file__).resolve().parent
-        assets_dir = script_dir / "Assets" / "elixir_templates"
+        assets_dir = script_dir / "Assets"
 
         loop_count = 0
         while True:
@@ -90,20 +103,11 @@ def get_elixir_templates(region: dict, frame_rate = 1/2.8):
             frame = cv.cvtColor(img, cv.COLOR_BGRA2BGR)
             #identifications = identification.identify(frame)
 
-            ess = sct.grab(capture_elixir)
+            ess = sct.grab(capture)
             eimg = np.asarray(ess)
             output_path = assets_dir / f"{loop_count}.png"
             loop_count += 1
             cv.imwrite(output_path, eimg)
-
-            eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
-
-            elixir_count = identification.grab_elixir(eframe)
-            cv.imshow("Live", eframe)
-
-            #print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
-            print({'e': elixir_count})
-            # Call elixir counting function hereq
 
             key = cv.waitKey(1)
             if key == ord('q'):
@@ -121,6 +125,6 @@ class Prediction:
     pass
 
 if __name__ == '__main__':
-    run_loop(capture)
+    get_troop_movement(capture)
 
 
