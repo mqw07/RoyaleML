@@ -71,7 +71,7 @@ def run_loop(region: dict, frame_rate = 1):
             else:
                 # Factopr in prev elixir_count
                 print(classification.infer_team_motion(prev_identification, identifications, elixir_count))
-                prev_identification = identification
+                prev_identification = identifications
 
             key = cv.waitKey(1)
             if key == ord('q'):
@@ -125,6 +125,6 @@ class Prediction:
     pass
 
 if __name__ == '__main__':
-    get_troop_movement(capture)
+    run_loop(capture)
 
 
