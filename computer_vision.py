@@ -69,7 +69,7 @@ def run_loop(region: dict, frame_rate = 1):
             if skip:
                 prev_identification = identifications
             else:
-                # Factopr in prev elixir_count
+                # Factor in prev elixir_count
                 print(classification.infer_team_motion(prev_identification, identifications, elixir_count))
                 prev_identification = identifications
 
