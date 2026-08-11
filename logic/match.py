@@ -1,5 +1,4 @@
-import card_data
-import computer_vision
+from computer_vision import card_data, computer_vision
 import time
 
 cards = card_data.load_cards_json(card_data.SAMPLE_JSON)

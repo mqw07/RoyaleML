@@ -1,8 +1,7 @@
 import cv2 as cv
-import classification
+from classifications import classification, identification
 import numpy as np
 from mss import MSS    
-import identification
 import time
 from pathlib import Path
 
@@ -70,7 +69,7 @@ def run_loop(region: dict, frame_rate = 1):
                 prev_identification = identifications
             else:
                 # Factor in prev elixir_count
-                print(classification.infer_team_motion(prev_identification, identifications, elixir_count))
+                print(classification.infer_team_motion(prev_identification, identifications))
                 prev_identification = identifications
 
             key = cv.waitKey(1)

@@ -10,10 +10,11 @@ def vertical_movement(pos1: tuple, pos2: tuple, min_movement = 3) -> str:
         return 'ally'
     return 'still'
 
-def infer_team_motion(identification_1: dict, identification_2: dict, elixir_difference: int) -> dict:
+def infer_team_motion(identification_1: dict, identification_2: dict) -> dict:
     """
     Infer the team of the current cards based off of data collected from 2 adjacent captures
     """
+
     res = {}
     if not identification_1 or not identification_2:
         return res

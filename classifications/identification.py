@@ -53,6 +53,7 @@ _SINGLE_DIGITS = frozenset(str(i) for i in range(10))
 _TEN_MIN_SCORE = 0.65
 _TEN_MIN_ASPECT = 1.05
 
+# Code from here on is AI Generated, don't ask me how it works.
 
 def _read_bgr(image) -> np.ndarray | None:
     if not isinstance(image, np.ndarray):
