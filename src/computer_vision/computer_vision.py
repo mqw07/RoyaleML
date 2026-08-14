@@ -39,11 +39,11 @@ def identify_frame(region: dict) -> dict:
     gameplay_capture = grab_frame(region)
     return identification.identify(gameplay_capture)
 
-def run_loop(region: dict, frame_rate = 1):
+def run_loop(region: dict):
     """
      Create a running loop, identifying the region and current elixir at the given frame rate.
     """
-    frame_interval = 1.0 / frame_rate
+    frame_interval = 0.7
 
     skip = False
     prev_identification = None
@@ -59,7 +59,7 @@ def run_loop(region: dict, frame_rate = 1):
             ess = sct.grab(capture_elixir)
             eimg = np.asarray(ess)
             eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
-            elixir_count = identification.grab_elixir(eframe)
+            e_count = identification.grab_elixir(eframe)
             cv.imshow("Live", eframe)
 
             #print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
@@ -67,9 +67,11 @@ def run_loop(region: dict, frame_rate = 1):
             # Pass in identifications, elixir_count
             if skip:
                 prev_identification = identifications
+                prev_ecount = e_count
             else:
-                # Factor in prev elixir_count
-                print(classification.infer_team_motion(prev_identification, identifications))
+                # TODO: Factor in prev elixir_count
+            
+                print(classification.infer_from_movement(prev_identification, identifications))
                 prev_identification = identifications
 
             key = cv.waitKey(1)
@@ -85,7 +87,7 @@ def run_loop(region: dict, frame_rate = 1):
     cv.destroyAllWindows()
     
 
-def get_troop_movement(region: dict, frame_rate = 1):
+def assign_teams(region: dict, frame_rate = 1):
     # Create a running loop, identifying the region at the given frame rate.
     frame_interval = 1.0 / frame_rate
 

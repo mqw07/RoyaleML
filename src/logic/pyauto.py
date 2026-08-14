@@ -3,6 +3,8 @@ pyautogui.PAUSE = 0.05
 pyautogui.FAILSAFE = True
    
 def click_location(location: tuple):
+    # Clicks on the given location
+
     pyautogui.moveTo(location[0], location[1])
     pyautogui.click()
 
@@ -14,6 +16,8 @@ left_bridge = (1930, 840)
 right_bridge = (2320, 840)
 
 def click_card_icon(location: int):
+    # Clicks on the given card icon
+    
     if not 0 < location < 5:
         raise ValueError("Not a valid hotbar slot")
     pyautogui.moveTo(1860 + 140 * location, 1250)
