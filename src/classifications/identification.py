@@ -16,8 +16,9 @@ _ASSETS = Path(__file__).resolve().parent / "Assets"
 gameplay_image_url = _ASSETS / "Game_Data" / "gameplay41.png"
 
 def identify(image) -> dict:
-    """ Inference the image using the Roboflow API. Can pass in image path, or nparray.
-        Data returned in type {'class' : [{'Confidence': decimal, 'Position': (x, y)}]}
+    """ 
+    Inference the image using the Roboflow API. Can pass in image path, or nparray.
+    Data returned in type {'class' : [{'Confidence': decimal, 'Position': (x, y)}]}
     """
     if isinstance(image, Path):
         image = str(image)

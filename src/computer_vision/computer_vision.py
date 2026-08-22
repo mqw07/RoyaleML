@@ -4,6 +4,7 @@ import numpy as np
 from mss import MSS    
 import time
 from pathlib import Path
+from logic.logic import make_decision
 
 capture = {
             "top": 55,
@@ -13,7 +14,7 @@ capture = {
             }
 
 capture_elixir = {
-                    "top": 1315,
+                    "top": 1330,
                     "left": 1963,
                     "width": 38,
                     "height": 40
@@ -61,6 +62,7 @@ def run_loop(region: dict):
             eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
             e_count = identification.grab_elixir(eframe)
             cv.imshow("Live", eframe)
+            cv.imshow("Game", frame)
 
             #print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
             #print(f"{identifications}, {elixir_count}")
@@ -70,10 +72,11 @@ def run_loop(region: dict):
                 prev_ecount = e_count
             else:
                 # TODO: Factor in prev elixir_count
-            
-                print(classification.infer_from_movement(prev_identification, identifications))
+                troop_classifications = classification.infer_from_movement(prev_identification, identifications)
+                print(troop_classifications)
                 prev_identification = identifications
-
+                make_decision(troop_classifications, 5)
+            
             key = cv.waitKey(1)
             if key == ord('q'):
                 break

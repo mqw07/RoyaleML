@@ -1,4 +1,4 @@
-from src.classifications import identification
+from classifications import identification
 
 
 def vertical_movement(pos1: tuple, pos2: tuple, min_movement = 3) -> str:
@@ -41,6 +41,7 @@ def infer_from_movement(identification_1: dict, identification_2: dict) -> dict:
 
 def infer_from_elixir(identification_1: dict, identification_2: dict, elixir_1: int, elixir_2: int) -> dict:
     """
+    TODO FINISH THIS
     Infer the team of the current cards based on the user's elixir spent from two adjacent captures
     """
     res = {}
