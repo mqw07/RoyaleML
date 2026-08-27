@@ -8,7 +8,7 @@ Troop Classification Model:
 - Labelled dataset from Roboflow
 - Uses YOLOv11 instance segmentation (multiple troops) and deployed with Roboflow API (Change to Google Colab in the future)
 - Identifies class name and quantity of a class on screen
-
+- 
 Elixir Counting:
 - First, program tries OpenCV Template matching to find correct elixir amount
 - If above fails, initiate ddddocr on a cutout of screen to identify self elixir
@@ -18,5 +18,7 @@ Computer Vision:
 - Running loop of screen to capture the emulated game using MSS and OpenCV
 - Feeds current screen instance to ddddocr and Roboflow for complete current metadata
 
-TODO:
-- Implement decision making capabilities and automated playing function with PyAutoGUI
+
+Sample Gameplay (Rudimentary)
+<img width="1147" height="701" alt="sample" src="https://github.com/user-attachments/assets/4cdf5bcf-e30c-4fdb-a117-695c769605a8" />
+
