@@ -7,16 +7,16 @@ from pathlib import Path
 from logic.logic import make_decision
 
 capture = {
-            "top": 55,
+            "top": 150,
             "left": 1755,
             "width": 760,
-            "height": 1310
+            "height": 1100
             }
 
 capture_elixir = {
-                    "top": 1330,
-                    "left": 1963,
-                    "width": 38,
+                    "top": 1375,
+                    "left": 1952,
+                    "width": 45,
                     "height": 40
                 }
 
@@ -60,12 +60,12 @@ def run_loop(region: dict):
             ess = sct.grab(capture_elixir)
             eimg = np.asarray(ess)
             eframe = cv.cvtColor(eimg, cv.COLOR_BGRA2BGR)
-            e_count = identification.grab_elixir(eframe)
+            e_count = (identification.grab_elixir(eframe))
             cv.imshow("Live", eframe)
             cv.imshow("Game", frame)
 
             #print({x: len(identifications[x]) for x in identifications}, {'e': elixir_count})
-            #print(f"{identifications}, {elixir_count}")
+            #print(f"{identifications}, {e_count}")
             # Pass in identifications, elixir_count
             if skip:
                 prev_identification = identifications
@@ -73,9 +73,10 @@ def run_loop(region: dict):
             else:
                 # TODO: Factor in prev elixir_count
                 troop_classifications = classification.infer_from_movement(prev_identification, identifications)
-                print(troop_classifications)
+                #print(troop_classifications)
+                print(e_count)
                 prev_identification = identifications
-                make_decision(troop_classifications, 5)
+                make_decision(troop_classifications, 6)
             
             key = cv.waitKey(1)
             if key == ord('q'):
