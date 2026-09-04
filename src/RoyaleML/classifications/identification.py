@@ -1,52 +1,60 @@
-from inference_sdk import InferenceHTTPClient
-import os
-import cv2 as cv
-from pathlib import Path
-from dotenv import load_dotenv
-import numpy as np
 from functools import lru_cache
+import os
+from pathlib import Path
+import sys
+
+import cv2 as cv
+from dotenv import load_dotenv
+from inference_sdk import InferenceHTTPClient
+import numpy as np
+
+for _parent in Path(__file__).resolve().parents:
+    if _parent.name == "src" and (_parent / "RoyaleML").is_dir():
+        if str(_parent) not in sys.path:
+            sys.path.insert(0, str(_parent))
+        break
+
+from RoyaleML.paths import GAME_DATA, elixir_digits_dir
 
 load_dotenv()
 
 CLIENT = InferenceHTTPClient(
-    api_url="https://serverless.roboflow.com", 
-    api_key=os.getenv("ROBOFLOW_API_KEY") 
+    api_url="https://serverless.roboflow.com",
+    api_key=os.getenv("ROBOFLOW_API_KEY"),
 )
-_ASSETS = Path(__file__).resolve().parent / "Assets"
-gameplay_image_url = _ASSETS / "Game_Data" / "gameplay41.png"
+gameplay_image_url = GAME_DATA / "gameplay41.png"
 
 def identify(image) -> dict:
-    """ 
-    Inference the image using the Roboflow API. Can pass in image path, or nparray.
-    Data returned in type {'class' : [{'Confidence': decimal, 'Position': (x, y)}]}
+    """
+    Infer troops from an image path or ndarray.
+    Returns {'class': [{'Confidence': decimal, 'Position': (x, y)}]}.
     """
     if isinstance(image, Path):
         image = str(image)
     elif isinstance(image, np.ndarray):
-        pass  # keep as ndarray
+        pass
     else:
         image = str(image)
-    
+
     results = CLIENT.infer(image, model_id="clash-royale-bot-3tpmk/1")
-    prediction_data = results['predictions']
+    prediction_data = results["predictions"]
     if prediction_data:
         predictions = {}
         for prediction in prediction_data:
-            troop_class = prediction['class']
+            troop_class = prediction["class"]
             if troop_class not in predictions:
                 predictions[troop_class] = []
             predictions[troop_class].append(
                 {
-                    'Confidence': prediction['confidence'],
-                    'Position': (prediction['x'], prediction['y'])
+                    "Confidence": prediction["confidence"],
+                    "Position": (prediction["x"], prediction["y"]),
                 }
             )
-        #predictions['Time'] = results['time'],
         return predictions
-    else:
-        return {}
+    return {}
 
-_ELIXIR_DIGITS_DIR = _ASSETS / "elixir_templates"
+
+_ELIXIR_DIGITS_DIR = elixir_digits_dir()
 _TEMPLATE_SIZE = (32, 48)  # width, height
 _TEMPLATE_MIN_SCORE = 0.58
 _VALID_ELIXIR = frozenset(str(i) for i in range(0, 11))
@@ -55,6 +63,7 @@ _TEN_MIN_SCORE = 0.65
 _TEN_MIN_ASPECT = 1.05
 
 # Code from here on is AI Generated, don't ask me how it works.
+
 
 def _read_bgr(image) -> np.ndarray | None:
     if not isinstance(image, np.ndarray):
@@ -248,6 +257,20 @@ def grab_elixir(image) -> str:
 
     return _read_glyph(glyph)
 
-if __name__ == '__main__':
-    print(identify(gameplay_image_url))
 
+if __name__ == "__main__":
+    from RoyaleML.paths import ELIXIR_IDENTIFICATIONS
+
+    if gameplay_image_url.is_file():
+        print(identify(gameplay_image_url))
+    else:
+        print(f"No sample gameplay image at {gameplay_image_url}")
+
+    sample = ELIXIR_IDENTIFICATIONS / "6.png"
+    if sample.is_file():
+        try:
+            print(f"grab_elixir({sample.name}) -> {grab_elixir(sample)}")
+        except Exception as exc:
+            print(f"grab_elixir({sample.name}) failed: {type(exc).__name__}")
+    else:
+        print(f"No elixir sample at {sample}")
