@@ -54,7 +54,7 @@ def infer_from_elixir(
     final_troops = identification_2.keys()
     if elixir_2 < elixir_1:
         return {}
-
+    return res
 
 if __name__ == "__main__":
     frame_a = {"chevalier": [{"Confidence": 0.9, "Position": (400.0, 900.0)}]}
