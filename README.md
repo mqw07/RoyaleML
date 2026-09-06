@@ -2,6 +2,12 @@
 
 Reactionary Clash Royale bot for a Windows-emulated game window. It watches the board, labels troops as ally or enemy, reads elixir, and places cards in response.
 
+## Sample gameplay (rudimentary)
+
+<img width="1147" height="701" alt="sample" src="https://github.com/user-attachments/assets/4cdf5bcf-e30c-4fdb-a117-695c769605a8" />
+
+Additional in game footage <a href="https://www.youtube.com/watch?v=Ug2wpVnkxZM" target="_blank">here</a>
+
 ## Key functionality
 
 **Screen capture (MSS + OpenCV)**  
@@ -56,9 +62,6 @@ You can also run `python -m RoyaleML` from the `src` folder. Two OpenCV windows 
 
 Optional: `pytest` runs the unit tests (`pythonpath` is already set to `src` in `pyproject.toml`).
 
-## Sample gameplay (rudimentary)
-
-<img width="1147" height="701" alt="sample" src="https://github.com/user-attachments/assets/4cdf5bcf-e30c-4fdb-a117-695c769605a8" />
 
 ## Next steps
 
