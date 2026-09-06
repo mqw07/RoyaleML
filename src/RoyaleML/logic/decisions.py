@@ -1,3 +1,4 @@
+from random import choice
 from pathlib import Path
 import sys
 
@@ -7,7 +8,7 @@ for _parent in Path(__file__).resolve().parents:
             sys.path.insert(0, str(_parent))
         break
 
-from RoyaleML.logic.actions import mid_left, place_card
+from RoyaleML.logic.actions import left_back, right_back, place_card
 
 
 def make_decision(identifications: dict, e_count: int):
@@ -16,7 +17,7 @@ def make_decision(identifications: dict, e_count: int):
     right_side_threshold = 2125  # X that determines which side the troop is on
 
     if identifications == {} and e_count >= 7:
-        place_card(2, mid_left)
+        place_card(2, choice([left_back, right_back]))
         return
 
     for troop, positions in identifications.items():

@@ -58,6 +58,7 @@ def run_loop(region: dict):
     skip = False
     prev_identification = None
     with MSS() as sct:
+        prev_identification = {}
         while True:
             loop_start = time.perf_counter()
             ss = sct.grab(region)
@@ -79,9 +80,9 @@ def run_loop(region: dict):
                 troop_classifications = classification.infer_from_movement(
                     prev_identification, identifications
                 )
-                print(e_count)
+                print(troop_classifications)
                 prev_identification = identifications
-                make_decision(troop_classifications, 6)
+                make_decision(troop_classifications, int(e_count))
 
             key = cv.waitKey(1)
             if key == ord("q"):

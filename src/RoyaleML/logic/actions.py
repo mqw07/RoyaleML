@@ -13,8 +13,8 @@ for _parent in Path(__file__).resolve().parents:
 pyautogui.PAUSE = 0.05
 pyautogui.FAILSAFE = True
 
-left_bridge = (1930, 680)
-right_bridge = (2320, 680)
+left_back = (2130, 1100)
+right_back = (2140, 1100)
 mid_left = (2125, 770)
 mid_right = (2140, 770)
 left_tower = (1930, 840)
@@ -43,8 +43,8 @@ def place_card(card_slot: int, location: tuple):
 
 
 if __name__ == "__main__":
+    place_card(1, left_back)
     print("Hotbar and board landmarks:")
-    print(f"  left_bridge={left_bridge} right_bridge={right_bridge}")
     print(f"  mid_left={mid_left} mid_right={mid_right}")
     print("Skipping live click. Uncomment place_card(4, right_bridge) to test input.")
     # place_card(4, right_bridge)

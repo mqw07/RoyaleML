@@ -22,7 +22,7 @@ def find_new_troops(identification_1, identification_2) -> str:
     """Returns the single new troop class found, if exactly one appeared."""
     new_troops = identification_1.keys() - identification_2.keys()
     if not new_troops or len(new_troops) > 1:
-        return
+        return ""
     return new_troops.pop()
 
 
@@ -53,7 +53,7 @@ def infer_from_elixir(
     initial_troops = identification_1.keys()
     final_troops = identification_2.keys()
     if elixir_2 < elixir_1:
-        return
+        return {}
 
 
 if __name__ == "__main__":
